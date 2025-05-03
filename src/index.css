@@ -1,13 +1,75 @@
-body {
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* HEAEDER */
+
+header {
+  background-image: url('./katanabg.png');
+  background-size: contain;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 40vh;
+  width: 100%;
+}
+h1 {
+  font-size: 5rem;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: bolder; 
+  /* border: #333 solid 2px; */
+  background-image: url('./katanastyle.png');
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-size: contain;
+  transition: all 0.5s ease;
+  cursor: none;
+  letter-spacing: -0.4rem;
+  /* line-height: 1; */
+}
+h1:hover {
+  background-image: url('./katanastyle.png');
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-size: contain;
+  letter-spacing: -0.2rem;
+  font-size: 6rem;
+}
+span {
+  letter-spacing: normal;
+  color: rgb(148, 0, 0);
+  font-size: 5.2rem;
+  text-shadow: 0px 0px 1px #000;
+
+}
+#elegant {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-style: italic;
+  font-weight: 500;
+}
+#simple {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-style: oblique;
+  font-weight: bolder;
+}
+#different {
+  font-family: 'Courier New', Courier, monospace;
+  font-style: oblique;
+  font-weight: bolder;
+}
+
+/* MAIN */
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  width: 100%;
+  height: 60vh;
+  background-color: #000;
 }
