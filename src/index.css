@@ -3,11 +3,21 @@
   margin: 0;
   padding: 0;
 }
+html,
+body {
+  height: 100%;
+  overflow: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE */
+}
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
 
 /* HEAEDER */
 
 header {
-  background-image: url('./katanabg.png');
+  background-image: url("./katanabg.png");
   background-size: contain;
   display: flex;
   justify-content: center;
@@ -18,10 +28,11 @@ header {
 }
 h1 {
   font-size: 5rem;
-  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-weight: bolder; 
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
+  font-weight: bolder;
   /* border: #333 solid 2px; */
-  background-image: url('./katanastyle.png');
+  background-image: url("./katanastyle.png");
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
@@ -32,7 +43,7 @@ h1 {
   /* line-height: 1; */
 }
 h1:hover {
-  background-image: url('./katanastyle.png');
+  background-image: url("./katanastyle.png");
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
@@ -45,20 +56,19 @@ span {
   color: rgb(148, 0, 0);
   font-size: 5.2rem;
   text-shadow: 0px 0px 1px #000;
-
 }
 #elegant {
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
   font-style: italic;
   font-weight: 500;
 }
 #simple {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-style: oblique;
   font-weight: bolder;
 }
 #different {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   font-style: oblique;
   font-weight: bolder;
 }
@@ -67,9 +77,175 @@ span {
 
 main {
   display: flex;
-  justify-content: center;
-  align-items: center;  
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-  height: 60vh;
+  height: 100vh;
   background-color: #000;
+  /* border: 5px solid white; */
+  padding: 0 1rem;
+}
+/* search module*/
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 70px;
+  background-color: white;
+  border-end-end-radius: 1rem;
+  border-end-start-radius: 1rem;
+  padding: 5px;
+  margin-bottom: 1rem;
+}
+h2 {
+  color: #000;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: 2rem;
+  /* text-shadow: #000 0px 0px 3px; */
+}
+form {
+  /* border: #000 solid 2px; */
+  width: 70%;
+  display: flex;
+  height: 40px;
+}
+input {
+  flex: 3;
+  box-shadow: inset 3px 3px 3px #cbced1, inset -3px -3px 3px white;
+  border: none;
+  border-radius: 50px;
+  color: gainsboro;
+  line-height: 1;
+}
+input::placeholder {
+  /* padding-left: 1rem; */
+  color: gray;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: 0.7rem;
+}
+input:focus {
+  outline: none;
+  box-shadow: inset 3px 3px 3px #cbced1, inset -3px -3px 3px white;
+}
+input[type="text"] {
+  padding-left: 1rem;
+  font-size: 0.7rem;
+  color: #000;
+}
+button {
+  flex: 1;
+  transition: all 0.3s ease;
+  border-radius: 50px;
+  border: none;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  background-color: #cbced1;
+  line-height: 1;
+}
+button:hover {
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 2px 2px 2px #b9b9ba, -2px -2px 2px rgb(255, 255, 255);
+}
+
+/* MAIN SECTION */
+
+.main-section {
+  height: 80vh;
+  background-color: #fff;
+  width: 100%;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  padding: 0.5rem;
+  padding-bottom: 0%;
+  display: flex;
+}
+/* results */
+.results {
+  width: 50%;
+  /* border: #000 solid 2px; */
+  display: flex;
+  flex-direction: column;
+  box-shadow: inset 0px 0px 3px #000;
+}
+h3 {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: 1.5rem;
+  color: #000;
+  padding: 0.5rem;
+  text-align: center;
+  box-shadow: #000 0px 0px 1px;
+}
+.result-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  /* border: #000 solid 1px; */
+}
+.result-item button {
+  line-height: 1;
+  border-radius: 50px;
+  padding: 0 0.5rem;
+}
+.result {
+  display: flex;
+}
+h4 {
+  font-family: "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  font-size: 1rem;
+  color: #000;
+  padding: 0.25rem;
+}
+p {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: 0.8rem;
+  color: #000;
+  padding: 0 0.25rem;
+}
+/* playlist */
+
+.playlist {
+  width: 50%;
+  /* border: #000 solid 2px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: inset 0px 0px 3px #000;
+  margin-left: 0.5rem;
+}
+.playlist form {
+  height: auto;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  padding: 0.5rem;
+  display: block;
+  text-align: center;
+  margin: 0% auto;
+  
+}
+.playlist input {
+  box-shadow: none;
+  border-bottom: #000 solid 2px;
+}
+.playlist input::placeholder {
+  margin: 0 auto;
+}
+.add {
+  /* padding: 0.5rem; */
+  max-height: 2rem;
+  width: 5rem;
+  margin: 0.5rem auto; 
+  background-color: #000;
+  color: #fff;
 }
