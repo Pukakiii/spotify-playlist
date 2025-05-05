@@ -5,31 +5,39 @@ export default function Playlist({ results }) {
         <label name="namePL">Playlist</label>
         <input name="namePl" type="text" placeholder="Playlist name..." />
       </form>
-      <div className="result-item">
-        <h4>songaapahcariii</h4>
-        <div className="result">
-          <p>bla artiss</p>
-          <p>album ble bla</p>
+      <div className="result-container">
+        <div className="result-item">
+          <h4>songaapahcariii</h4>
+          <div className="result">
+            <p>bla artiss</p>
+            <p id="album">album ble bla</p>
+          </div>
         </div>
         <button>-</button>
       </div>
-      <div className="result-item">
-        <h4>songaapahcariii</h4>
-        <div className="result">
-          <p>bla artiss</p>
-          <p>album ble bla</p>
+      <div className="result-container">
+        <div className="result-item">
+          <h4>songaapahcariii</h4>
+          <div className="result">
+            <p>bla artiss</p>
+            <p id="album">album ble bla</p>
+          </div>
         </div>
         <button>-</button>
       </div>
-      <div className="result-item">
-        <h4>songaapahcariii</h4>
-        <div className="result">
-          <p>bla artiss</p>
-          <p>album ble bla</p>
+      <div className="result-container">
+        <div className="result-item">
+          <h4>songaapahcariii</h4>
+          <div className="result">
+            <p>bla artiss</p>
+            <p id="album">album ble bla</p>
+          </div>
         </div>
         <button>-</button>
       </div>
-      <button className="add">add</button>
+      <div className="add">
+        <button>add</button>
+      </div>
     </div>
   );
 }
