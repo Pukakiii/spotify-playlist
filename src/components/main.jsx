@@ -2,6 +2,7 @@ import React, { act } from "react";
 import Search from "../modules/search";
 import Results from "../modules/results";
 import Playlist from "../modules/playlist";
+import Track from "../modules/track";
 import { searchRequest, tokenRequest } from "../modules/api";
 import { sample } from "../modules/sampleSearchResponse";
 
@@ -18,6 +19,7 @@ export default function Main() {
       }
     }, 3000);
   }, []);
+
   // generate track
   function generateTrack() {
     const trackArr = [];
@@ -31,44 +33,48 @@ export default function Main() {
         show: true,
       };
       trackArr.push(track);
-      // console.log(track);
     }
     return trackArr;
   }
-  const trackElements = tracks.map((track, index) => {
-    return (
-      <div
-        className="track-container"
-        key={track.name}
-        style={{
-          backgroundImage: `url(${track.image}), linear-gradient(rgb(255, 255, 255), rgb(138, 138, 138), rgb(255, 255, 255))`,
-        }}
-      >
-        <div className="track">
-          <h4>{track.name}</h4>
-          <div className="track-data">
-            <p>{track.artist}</p>
-            <p>-</p>
-            <p id="album">{track.album}</p>
-          </div>
-        </div>
-        <button
-          onClick={() => {
-            addRemoveTrack(track.id);
-          }}
-        >
-          +
-        </button>
-      </div>
-    );
-  });
-  // console.log("trackElements", trackElements);
+
+  const tracksResult = tracks
+    .filter((track) => track.show) // Only include tracks where show is true
+    .map((track, index) => {
+      return (
+        <Track
+          name={track.name}
+          artist={track.artist}
+          album={track.album}
+          image={track.image}
+          id={track.id}
+          key={track.id}
+          show={track.show}
+          addRemoveTrack={addRemoveTrack}
+        />
+      );
+    });
+  const tracksPlayslist = tracks
+    .filter((track) => !track.show) // Only include tracks where show is not true
+    .map((track, index) => {
+      return (
+        <Track
+          name={track.name}
+          artist={track.artist}
+          album={track.album}
+          image={track.image}
+          id={track.id}
+          key={track.id}
+          show={track.show}
+          addRemoveTrack={addRemoveTrack}
+        />
+      );
+    });
 
   //add or remove track from playlist
   function addRemoveTrack(id) {
     setTracks((prevTracks) => {
-      prevTracks.map((track) => {
-        return id === id.track ? { ...track, show: !track.show } : { ...track };
+      return prevTracks.map((track) => {
+        return id === track.id ? { ...track, show: !track.show } : { ...track };
       });
     });
   }
@@ -77,12 +83,8 @@ export default function Main() {
     <main ref={ref}>
       <Search />
       <div className="main-section">
-        <Results
-          trackElements={trackElements}
-          tracks={tracks}
-          // addRemoveTrack={addRemoveTrack(tracks.id)}
-        />
-        <Playlist tracks={tracks} />
+        <Results tracksResult={tracksResult} tracks={tracks} />
+        <Playlist tracksPlayslist={tracksPlayslist} tracks={tracks} />
       </div>
     </main>
   );

@@ -1,6 +1,6 @@
 import { isVisible } from "@testing-library/user-event/dist/utils"
 
-export default function Playlist({ tracks, isVisible, setIsVisible }) {
+export default function Playlist({ tracksPlayslist }) {
   
   return (
     <div className="playlist">
@@ -8,7 +8,7 @@ export default function Playlist({ tracks, isVisible, setIsVisible }) {
         <label name="namePL">Playlist</label>
         <input name="namePl" type="text" placeholder="Playlist name..." />
       </form>
-      
+      {tracksPlayslist}
       <div className="add">
         <button>add</button>
       </div>
