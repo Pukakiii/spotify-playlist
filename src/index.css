@@ -72,9 +72,9 @@ span {
   font-style: oblique;
   font-weight: bolder;
 }
- 
+
 /* MAIN */
- 
+
 main {
   display: flex;
   justify-content: space-between;
@@ -132,7 +132,7 @@ input:focus {
   outline: none;
   box-shadow: inset 3px 3px 3px #cbced1, inset -3px -3px 3px white;
 }
-input[type="text"] {
+.search input[type="text"] {
   padding-left: 1rem;
   font-size: 0.8rem;
   color: #000;
@@ -176,13 +176,22 @@ button:hover {
   box-shadow: inset 0px 0px 3px #000;
   border-top-left-radius: 0.5rem;
 }
-.result-container {
+.track-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   /* padding: 0.5rem; */
   /* border: #000 solid 1px; */
   max-width: 15rem;
+  width: 12rem;
+  height: 5rem;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 10px;
+  background-blend-mode: screen;
+  margin: 0.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.96);
 }
 #track {
   width: 100%;
@@ -201,22 +210,29 @@ h3 {
   text-align: center;
   margin: 0;
 }
-.result-item {
+.track {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   padding: 0.5rem;
+  max-height: 100%;
+  /* border: #000 solid 1px; */
 }
-.result-container button {
+.track-container button {
   line-height: 1;
   border-radius: 50px;
   max-height: 1rem;
   max-width: 2rem;
   width: 2rem;
+  min-width: 2rem;
   margin-right: 0.5rem;
   /* margin: 1rem; */
 }
-.result {
+.track-data {
   display: flex;
+  justify-content: start;
+  /* border: #000 1px solid; */
+
 }
 h4 {
   font-family: "Lucida Grande", "Lucida Sans", Arial, sans-serif;
@@ -229,8 +245,10 @@ p {
     "Lucida Sans", Arial, sans-serif;
   font-size: 0.8rem;
   color: #000;
-  padding: 0 0.25rem;
+  padding: 0 0.2rem;
+  text-align: center;
 }
+
 /* playlist */
 
 .playlist {
@@ -242,7 +260,6 @@ p {
   box-shadow: inset 0px 0px 3px #000;
   margin-left: 0.5rem;
   border-top-right-radius: 0.5rem;
-  ;
 }
 .playlist form {
   width: 100%;
@@ -259,23 +276,34 @@ p {
   text-align: center;
   margin: 0;
   margin-top: 0.5rem;
-
 }
 .playlist input {
   box-shadow: none;
   border-bottom: #000 solid 2px;
   margin: 0 auto;
-  width: 70%;
+  width: 40%;
+  border-radius: 0;
+  margin-top: 0.25rem;
 }
 .playlist input::placeholder {
   margin: 0 auto;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial,
+    sans-serif;
+  font-weight: 100;
+  color: #cbced1;
+  margin-left: 0;
+}
+.playlist input[type="text"] {
+  outline: none;
+  box-shadow: none;
+  color: #000;
 }
 .add {
   width: 100%;
   margin: 0% auto;
   display: flex;
   justify-content: center;
-} 
+}
 .add button {
   /* padding: 0.5rem; */
   max-height: 3rem;
