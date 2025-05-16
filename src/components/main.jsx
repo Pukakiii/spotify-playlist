@@ -1,10 +1,11 @@
-import React, { act } from "react";
+import React from "react";
 import Search from "../modules/search";
 import Results from "../modules/results";
 import Playlist from "../modules/playlist";
 import Track from "../modules/track";
-import { searchRequest, tokenRequest } from "../modules/api";
+import { searchRequest } from "../modules/api";
 import { sample } from "../modules/sampleSearchResponse";
+import { debounce } from "lodash";
 
 export default function Main() {
   const [tracks, setTracks] = React.useState(() => generateTrack(sample));
@@ -55,7 +56,7 @@ export default function Main() {
     });
   const tracksPlayslist = tracks
     .filter((track) => !track.show) // Only include tracks where show is not true
-    .map(track => {
+    .map((track) => {
       return (
         <Track
           name={track.name}
@@ -80,11 +81,18 @@ export default function Main() {
   }
 
   //handle request
-  async function handleRequest(event) {
+  const debouncedSearchRequest = React.useMemo(() =>
+    debounce(async (query) => {
+      const data = await searchRequest(query);
+      setTracks(generateTrack(data));
+    }, 1000),
+    []
+  );
+  function handleRequest(event) {
     event.preventDefault();
     const query = event.target.value;
-    const data = await searchRequest(query);
-    setTracks(generateTrack(data))
+    if (query.trim().length === 0) return; 
+    debouncedSearchRequest(query);
   }
 
   return (

@@ -31,7 +31,7 @@ export async function searchRequest(query) {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    // console.log("Search request response:", response);
+    console.log("Search request response:", response);
     const data = await response.json();
     // console.log("Search request data:", data);
     return data;
