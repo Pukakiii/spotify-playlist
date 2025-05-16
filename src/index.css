@@ -120,6 +120,7 @@ input {
   border-radius: 50px;
   color: gainsboro;
   line-height: 1;
+  padding-top: 5px;
 }
 input::placeholder {
   /* padding-left: 1rem; */
@@ -175,6 +176,8 @@ button:hover {
   justify-content: space-evenly;
   box-shadow: inset 0px 0px 3px #000;
   border-top-left-radius: 0.5rem;
+  overflow: auto;
+  scrollbar-width: thin;
 }
 .track-container {
   display: flex;
@@ -215,7 +218,6 @@ h3 {
   justify-content: center;
   padding: 0.5rem;
   max-height: 100%;
-  /* border: #000 solid 1px; */
 }
 .track-container button {
   line-height: 1;
@@ -225,12 +227,10 @@ h3 {
   width: 2rem;
   min-width: 2rem;
   margin-right: 0.5rem;
-  /* margin: 1rem; */
 }
 .track-data {
   display: flex;
   justify-content: start;
-  /* border: #000 1px solid; */
 }
 h4 {
   font-family: "Lucida Grande", "Lucida Sans", Arial, sans-serif;
@@ -265,7 +265,6 @@ p {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* align-items: center; */
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
   font-size: 1.5rem;
@@ -283,7 +282,7 @@ p {
   width: 40%;
   border-radius: 0;
   margin-top: 0.5rem;
-
+  width: 11rem;
 }
 .playlist input::placeholder {
   margin: 0 auto;

@@ -33,7 +33,7 @@ export async function searchRequest(query) {
     }
     // console.log("Search request response:", response);
     const data = await response.json();
-    // console.log("Search request data:", data.artists);
+    // console.log("Search request data:", data);
     return data;
   } catch (error) {
     console.error("Error fetching search results:", error);

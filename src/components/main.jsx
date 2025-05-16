@@ -7,7 +7,7 @@ import { searchRequest, tokenRequest } from "../modules/api";
 import { sample } from "../modules/sampleSearchResponse";
 
 export default function Main() {
-  const [tracks, setTracks] = React.useState(generateTrack());
+  const [tracks, setTracks] = React.useState(() => generateTrack(sample));
 
   // Scroll to the element after 2 seconds
   const ref = React.useRef(null);
@@ -21,15 +21,15 @@ export default function Main() {
   }, []);
 
   // generate track
-  function generateTrack() {
+  function generateTrack(data = sample) {
     const trackArr = [];
-    for (let i = 0; i < sample.tracks.items.length; i++) {
+    for (let i = 0; i < data.tracks?.items.length; i++) {
       const track = {
-        name: sample.tracks.items[i].name,
-        artist: sample.tracks.items[i].artists[0].name,
-        album: sample.tracks.items[i].album.name,
-        image: sample.tracks.items[i].album.images[0].url,
-        id: sample.tracks.items[i].name,
+        name: data.tracks.items[i].name,
+        artist: data.tracks.items[i].artists[0].name,
+        album: data.tracks.items[i].album.name,
+        image: data.tracks.items[i].album.images[0].url,
+        id: data.tracks.items[i].id,
         show: true,
       };
       trackArr.push(track);
@@ -55,7 +55,7 @@ export default function Main() {
     });
   const tracksPlayslist = tracks
     .filter((track) => !track.show) // Only include tracks where show is not true
-    .map((track, index) => {
+    .map(track => {
       return (
         <Track
           name={track.name}
@@ -79,9 +79,17 @@ export default function Main() {
     });
   }
 
+  //handle request
+  async function handleRequest(event) {
+    event.preventDefault();
+    const query = event.target.value;
+    const data = await searchRequest(query);
+    setTracks(generateTrack(data))
+  }
+
   return (
     <main ref={ref}>
-      <Search />
+      <Search handleRequest={handleRequest} />
       <div className="main-section">
         <Results tracksResult={tracksResult} tracks={tracks} />
         <Playlist tracksPlayslist={tracksPlayslist} tracks={tracks} />
