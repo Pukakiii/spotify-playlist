@@ -24,7 +24,7 @@ export default function Main() {
   // generate track
   function generateTrack(data = sample) {
     const trackArr = [];
-    for (let i = 0; i < data.tracks?.items.length; i++) {
+    for (let i = 0; i < data.tracks.items.length; i++) {
       const track = {
         name: data.tracks.items[i].name,
         artist: data.tracks.items[i].artists[0].name,
@@ -66,16 +66,18 @@ export default function Main() {
   }
 
   //handle playlist
-  function addPlaylist() {
-    
-  }
+  function addPlaylist() {}
 
   return (
     <main ref={ref}>
       <Search handleRequest={handleRequest} />
       <div className="main-section">
         <Results tracks={tracks} handleTrack={addRemoveTrack} />
-        <Playlist handlePlaylist={addPlaylist} tracks={tracks} handleTrack={addRemoveTrack} />
+        <Playlist
+          handlePlaylist={addPlaylist}
+          tracks={tracks}
+          handleTrack={addRemoveTrack}
+        />
       </div>
     </main>
   );

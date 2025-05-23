@@ -1,4 +1,3 @@
-
 console.log("Main function running...");
 const accessToken = main();
 
@@ -37,7 +36,10 @@ async function redirectToAuthCodeFlow(clientId) {
   params.append("client_id", clientId);
   params.append("response_type", "code");
   params.append("redirect_uri", "http://127.0.0.1:3000/callback");
-  params.append("scope", "user-read-private user-read-email playlist-modify-private playlist-modify-public");
+  params.append(
+    "scope",
+    "user-read-private user-read-email playlist-modify-private playlist-modify-public"
+  );
   params.append("code_challenge_method", "S256");
   params.append("code_challenge", challenge);
 
@@ -130,7 +132,7 @@ async function fetchProfile() {
 const profileId = fetchProfile();
 
 // createPlaylist
-export async function createPlaylist(playlistName) {
+export async function createPlaylist(playlistName = "Test") {
   console.log("Creating playlist...", await accessToken);
   const result = await fetch(
     `https://api.spotify.com/v1/users/${await profileId}/playlists`,
@@ -140,16 +142,36 @@ export async function createPlaylist(playlistName) {
         Authorization: `Bearer ${await accessToken}`,
         "Content-Type": "application/json",
       },
-      body: {
-        name: "New Playlist"
-      },
+      body: JSON.stringify({
+        name: playlistName,
+      }),
     }
   );
   const data = await result.json();
   console.log("Create playlist response:", result);
-  return data;
+  return data.id;
 }
-// createPlaylist()
+const playlistId = createPlaylist();
+
+export async function addTracksToPlaylist(tracks) {
+  console.log("Adding tracks to playlist...");
+  const tracksUris = tracks
+    .filter((track) => track.added)
+    .map((track) => `spotify:track:${track.id}`);
+  const result = await fetch(
+    `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${await accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        uris: [tracksUris],
+      }),
+    }
+  );
+}
 
 // CLIENT AUTH FLOW
 // export async function tokenRequest() {
