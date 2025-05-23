@@ -20,7 +20,7 @@ export default function Track(props) {
           props.addRemoveTrack(props.id);
         }}
       >
-        {props.show ? '+' : '-'}
+        {props.added ? "-" : "+"}
       </button>
     </div>
   );

@@ -31,76 +31,51 @@ export default function Main() {
         album: data.tracks.items[i].album.name,
         image: data.tracks.items[i].album.images[0].url,
         id: data.tracks.items[i].id,
-        show: true,
+        added: false,
       };
       trackArr.push(track);
     }
     return trackArr;
   }
 
-  const tracksResult = tracks
-    .filter((track) => track.show) // Only include tracks where show is true
-    .map((track, index) => {
-      return (
-        <Track
-          name={track.name}
-          artist={track.artist}
-          album={track.album}
-          image={track.image}
-          id={track.id}
-          key={track.id}
-          show={track.show}
-          addRemoveTrack={addRemoveTrack}
-        />
-      );
-    });
-  const tracksPlayslist = tracks
-    .filter((track) => !track.show) // Only include tracks where show is not true
-    .map((track) => {
-      return (
-        <Track
-          name={track.name}
-          artist={track.artist}
-          album={track.album}
-          image={track.image}
-          id={track.id}
-          key={track.id}
-          show={track.show}
-          addRemoveTrack={addRemoveTrack}
-        />
-      );
-    });
-
   //add or remove track from playlist
   function addRemoveTrack(id) {
     setTracks((prevTracks) => {
       return prevTracks.map((track) => {
-        return id === track.id ? { ...track, show: !track.show } : { ...track };
+        return id === track.id
+          ? { ...track, added: !track.added }
+          : { ...track };
       });
     });
   }
 
-  //handle request
-  const debouncedSearchRequest = React.useMemo(() =>
-    debounce(async (query) => {
-      const data = await searchRequest(query);
-      setTracks(generateTrack(data));
-    }, 1000),
+  //handle Search request
+  const debouncedSearchRequest = React.useMemo(
+    () =>
+      debounce(async (query) => {
+        const data = await searchRequest(query);
+        setTracks(generateTrack(data));
+      }, 1000),
     []
   );
   function handleRequest(event) {
     event.preventDefault();
     const query = event.target.value;
-    if (query.trim().length === 0) return; 
+    if (query.trim().length === 0) return;
     debouncedSearchRequest(query);
+  }
+
+  //handle playlist
+  function addPlaylist() {
+    
   }
 
   return (
     <main ref={ref}>
       <Search handleRequest={handleRequest} />
       <div className="main-section">
-        <Results tracksResult={tracksResult} tracks={tracks} />
-        <Playlist tracksPlayslist={tracksPlayslist} tracks={tracks} />
+        <Results tracks={tracks} handleTrack={addRemoveTrack} />
+        <Playlist handlePlaylist={addPlaylist} tracks={tracks} handleTrack={addRemoveTrack} />
       </div>
     </main>
   );

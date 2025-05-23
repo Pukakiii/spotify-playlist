@@ -1,6 +1,21 @@
-import { isVisible } from "@testing-library/user-event/dist/utils";
-
-export default function Playlist({ tracksPlayslist }) {
+import Track from "./track";
+export default function Playlist({ tracks, handleTrack }) {
+  const tracksPlayslist = tracks
+    .filter((track) => track.added) 
+    .map((track) => {
+      return (
+        <Track
+          name={track.name}
+          artist={track.artist}
+          album={track.album}
+          image={track.image}
+          id={track.id}
+          key={track.id}
+          added={track.added}
+          addRemoveTrack={handleTrack}
+        />
+      );
+    });
   return (
     <div className="playlist">
       <form className="playlist-form">
@@ -9,7 +24,7 @@ export default function Playlist({ tracksPlayslist }) {
       </form>
       {tracksPlayslist}
       <div className="add">
-        <button>add</button>
+        <button onClick={""}>add</button>
       </div>
     </div>
   );
