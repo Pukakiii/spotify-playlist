@@ -2,8 +2,11 @@ import React from "react";
 import Search from "../modules/search";
 import Results from "../modules/results";
 import Playlist from "../modules/playlist";
-import Track from "../modules/track";
-import { searchRequest } from "../modules/api";
+import {
+  searchRequest,
+  addTracksToPlaylist,
+  createPlaylist,
+} from "../modules/api";
 import { sample } from "../modules/sampleSearchResponse";
 import { debounce } from "lodash";
 
@@ -11,9 +14,9 @@ export default function Main() {
   const [tracks, setTracks] = React.useState(() => generateTrack(sample));
 
   // Scroll to the element after 2 seconds
-  const ref = React.useRef(null);
+  const refScroll = React.useRef(null);
   React.useEffect(() => {
-    const mainNode = ref.current;
+    const mainNode = refScroll.current;
     setTimeout(() => {
       if (mainNode) {
         mainNode.scrollIntoView({ behavior: "smooth" });
@@ -58,7 +61,7 @@ export default function Main() {
       }, 1000),
     []
   );
-  function handleRequest(event) {
+  function handleSearchRequest(event) {
     event.preventDefault();
     const query = event.target.value;
     if (query.trim().length === 0) return;
@@ -66,14 +69,28 @@ export default function Main() {
   }
 
   //handle playlist
-  function addPlaylist() {}
+  const refPlaylist = React.useRef(null);
+  
+  function addPlaylist(tracks) {
+    const playlistName = refPlaylist.current?.value;
+    console.log("Playlist name:", playlistName);
+    
+    const playlistId = createPlaylist(playlistName);
+    addTracksToPlaylist(tracks, playlistId)
+      
+    // Clear the input after reading
+    if (refPlaylist.current) {
+      refPlaylist.current.value = "";
+    }
+  }
 
   return (
-    <main ref={ref}>
-      <Search handleRequest={handleRequest} />
+    <main ref={refScroll}>
+      <Search handleSearchRequest={handleSearchRequest} />
       <div className="main-section">
         <Results tracks={tracks} handleTrack={addRemoveTrack} />
         <Playlist
+          ref={refPlaylist}
           handlePlaylist={addPlaylist}
           tracks={tracks}
           handleTrack={addRemoveTrack}

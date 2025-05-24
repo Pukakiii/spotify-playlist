@@ -149,17 +149,21 @@ export async function createPlaylist(playlistName = "Test") {
   );
   const data = await result.json();
   console.log("Create playlist response:", result);
+  console.log("Created playlist ID:", data.id);
   return data.id;
 }
-const playlistId = createPlaylist();
 
-export async function addTracksToPlaylist(tracks) {
+export async function addTracksToPlaylist(
+  tracks,
+  playlistId = createPlaylist()
+) {
   console.log("Adding tracks to playlist...");
+  console.log("Tracks to add:", tracks);
   const tracksUris = tracks
     .filter((track) => track.added)
     .map((track) => `spotify:track:${track.id}`);
   const result = await fetch(
-    `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+    `https://api.spotify.com/v1/playlists/${await playlistId}/tracks`,
     {
       method: "POST",
       headers: {
@@ -167,10 +171,12 @@ export async function addTracksToPlaylist(tracks) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        uris: [tracksUris],
+        uris: tracksUris,
       }),
     }
   );
+  const data = await result.json();
+  console.log("Add tracks response:", data);
 }
 
 // CLIENT AUTH FLOW

@@ -1,7 +1,7 @@
 import Track from "./track";
-export default function Playlist({ tracks, handleTrack }) {
+export default function Playlist({ ref, tracks, handleTrack, handlePlaylist }) {
   const tracksPlayslist = tracks
-    .filter((track) => track.added) 
+    .filter((track) => track.added)
     .map((track) => {
       return (
         <Track
@@ -20,11 +20,16 @@ export default function Playlist({ tracks, handleTrack }) {
     <div className="playlist">
       <form className="playlist-form">
         <label name="namePL">Playlist</label>
-        <input name="namePl" type="text" placeholder="e. g. Best songs" />
+        <input
+          ref={ref}
+          name="namePl"
+          type="text"
+          placeholder="e. g. Best songs"
+        />
       </form>
       {tracksPlayslist}
       <div className="add">
-        <button onClick={""}>add</button>
+        <button onClick={() => handlePlaylist(tracks)}>add</button>
       </div>
     </div>
   );
