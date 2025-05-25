@@ -70,14 +70,24 @@ export default function Main() {
 
   //handle playlist
   const refPlaylist = React.useRef(null);
-  
+
   function addPlaylist(tracks) {
     const playlistName = refPlaylist.current?.value;
     console.log("Playlist name:", playlistName);
-    
-    const playlistId = createPlaylist(playlistName);
-    addTracksToPlaylist(tracks, playlistId)
-      
+
+    if (playlistName || playlistName.trim().length !== 0) {
+      const playlist = createPlaylist(playlistName);
+      const addTracksResponse = addTracksToPlaylist(tracks, playlist);
+
+      setTracks((prevTracks) =>
+        prevTracks.map((track) => ({ ...track, added: false }))
+      ); // Reset all tracks to not added
+
+      } else {
+      refPlaylist.current.classList.remove("pop-animation");
+      void refPlaylist.current.offsetWidth; // Trigger reflow
+      refPlaylist.current.classList.add("pop-animation");
+    }
     // Clear the input after reading
     if (refPlaylist.current) {
       refPlaylist.current.value = "";

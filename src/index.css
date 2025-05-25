@@ -330,3 +330,18 @@ p {
 .add button:active {
   background-color: aliceblue;
 }
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pop-animation {
+  animation: pop 0.3s ease-in-out;
+}
