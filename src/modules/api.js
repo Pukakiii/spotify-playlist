@@ -177,6 +177,7 @@ export async function addTracksToPlaylist(
   );
   const data = await result.json();
   console.log("Add tracks response:", data);
+  return data;
 }
 
 // CLIENT AUTH FLOW

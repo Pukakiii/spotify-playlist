@@ -10,9 +10,9 @@ export default function Track(props) {
       <div className="track">
         <h4>{props.name}</h4>
         <div className="track-data">
-          <p>{props.artist}</p>
-          <p>-</p>
-          <p id="album">{props.album}</p>
+          <p title={props.artist}>{props.artist}</p>
+          <p >-</p>
+          <p title={props.album} id="album" >{props.album}</p>
         </div>
       </div>
       <button
