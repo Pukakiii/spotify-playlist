@@ -132,8 +132,7 @@ async function fetchProfile() {
 const profileId = fetchProfile();
 
 // createPlaylist
-export async function createPlaylist(playlistName = "Test") {
-  console.log("Creating playlist...", await accessToken);
+export async function createPlaylist(playlistName) {
   const result = await fetch(
     `https://api.spotify.com/v1/users/${await profileId}/playlists`,
     {

@@ -8,11 +8,11 @@ import {
   createPlaylist,
 } from "../modules/api";
 import { sample } from "../modules/sampleSearchResponse";
-import { add, debounce } from "lodash";
+import { debounce } from "lodash";
 
 export default function Main() {
   const [tracks, setTracks] = React.useState(() => generateTrack(sample));
-
+  const [response, setResponse] = React.useState(null);
   // Scroll to the element after 2 seconds
   const refScroll = React.useRef(null);
   React.useEffect(() => {
@@ -78,8 +78,10 @@ export default function Main() {
     if (playlistName || playlistName.trim().length !== 0) {
       const playlist = await createPlaylist(playlistName);
       const addTracksResponse = await addTracksToPlaylist(tracks, playlist);
+      setResponse([playlist, addTracksResponse]);
       console.log("Add tracks response:", addTracksResponse);
       console.log("create pl resp:", playlist);
+     
       setTracks((prevTracks) =>
         prevTracks.map((track) => ({ ...track, added: false }))
       ); // Reset all tracks to not added
@@ -87,8 +89,7 @@ export default function Main() {
       playlist && addTracksResponse.snapshot_id
         ? refPlaylistContainer.current.classList.add("success-animation")
         : refPlaylistContainer.current.classList.add("error-animation");
-    
-      } else {
+    } else {
       refPlaylist.current.classList.remove("pop-animation");
       void refPlaylist.current.offsetWidth; // Trigger reflow
       refPlaylist.current.classList.add("pop-animation");
@@ -105,10 +106,11 @@ export default function Main() {
       <div className="main-section">
         <Results tracks={tracks} handleTrack={addRemoveTrack} />
         <Playlist
-          refs={{refPlaylist, refPlaylistContainer}}
+          refs={{ refPlaylist, refPlaylistContainer }}
           handlePlaylist={addPlaylist}
           tracks={tracks}
           handleTrack={addRemoveTrack}
+          response={response}
         />
       </div>
     </main>

@@ -1,5 +1,19 @@
 import Track from "./track";
-export default function Playlist({ refs, tracks, handleTrack, handlePlaylist }) {
+export default function Playlist({
+  response,
+  refs,
+  tracks,
+  handleTrack,
+  handlePlaylist,
+}) {
+  console.log("resp:", response);
+  let spotifyResponse = "";
+  if (response !== null) {
+    spotifyResponse =
+      response[0] && response[1].snapshot_id
+        ? `Created`
+        : "Something went wrong";
+  }
   const tracksPlayslist = tracks
     .filter((track) => track.added)
     .map((track) => {
@@ -25,7 +39,12 @@ export default function Playlist({ refs, tracks, handleTrack, handlePlaylist }) 
           name="namePl"
           type="text"
           placeholder="e. g. Best songs"
-          style={{borderBottom: !tracksPlayslist.length > 0 ? "1px solid #000": "2px solid rgb(1, 115, 15)"}}
+          style={{
+            borderBottom:
+              !tracksPlayslist.length > 0
+                ? "1px solid #000"
+                : "2px solid rgb(1, 115, 15)",
+          }}
         />
       </form>
       {tracksPlayslist}
@@ -34,7 +53,7 @@ export default function Playlist({ refs, tracks, handleTrack, handlePlaylist }) 
           <button onClick={() => handlePlaylist(tracks)}>add</button>
         </div>
       )}
-      <div ref={refs.refPlaylistContainer}></div>
+      <div ref={refs.refPlaylistContainer}>{spotifyResponse}</div>
     </div>
   );
 }
